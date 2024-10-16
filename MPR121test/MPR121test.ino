@@ -46,16 +46,18 @@ void setup() {
     while (1);
   }
   Serial.println("MPR121 found!");
+  cap.setThresholds(5,2);
 }
 
 void loop() {
-  // Get the currently touched pads
-  currtouched = cap.touched();
+  // Get the currently touched pads 
+  // 1 indicates it is being touched
+  currtouched = cap.touched(); // increase sensitivity
   
   for (uint8_t i=0; i<12; i++) {
     // it if *is* touched and *wasnt* touched before, alert!
     if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)) ) {
-      Serial.print(i); Serial.println(" touched");
+        Serial.print(i);Serial.println(" touched: "); 
     }
     // if it *was* touched and now *isnt*, alert!
     if (!(currtouched & _BV(i)) && (lasttouched & _BV(i)) ) {
