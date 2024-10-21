@@ -1,7 +1,7 @@
 //import java.util.Scanner;
 import java.util.Random;
 
-int level = 1;
+//int level = 1;
 
 IntList generateSequence(int sequenceLength){
   
@@ -19,58 +19,41 @@ IntList generateSequence(int sequenceLength){
   
 }
 
-void displaySequence(IntList currSequence){
-  
-    for(int element : currSequence){
-      if(element == 1){
-        c1.circleColor = color(255, 209, 102);
-        c1.display();
-      }
-      
+void displaySequence(IntList sequence) {
+    if (sequenceIndex < sequence.size()) {
+        if (frameCount - displayFrameCount > 30) {  // 0.5 seconds per element
+            int element = sequence.get(sequenceIndex);
+            elements.get(element).circleColor = color(6, 214, 160);
+            elements.get(element).display();
+
+            // Reset the circle's color after a short delay
+            if (frameCount - displayFrameCount > 60) {  // 1 second total
+                elements.get(element).circleColor = initColor;
+                elements.get(element).display();
+
+                sequenceIndex++;  // Move to the next element
+                displayFrameCount = frameCount;  // Reset frame counter
+            }
+        }
+    } else {
+        userStage = true;  // Switch to user's turn after sequence is displayed
+        sequenceIndex = 0;
     }
-  
-  
-    //if (wireNumber.equals("1")){
-    //                c1.circleColor = color(255, 209, 102);
-    //                c1.display();
-    //            }
-    //            if (wireNumber.equals("2")){
-    //                c2.circleColor = color(6, 214, 160);
-    //                c2.display();
-    //            }
-    //            if (wireNumber.equals("3")){
-    //                c3.circleColor = color(17, 138, 178);
-    //                c3.display();
-    //            }
-    //            if (wireNumber.equals("4")){
-    //                c4.circleColor = color(40, 194, 255);
-    //                c4.display();
-    //            }
-    //            if (wireNumber.equals("5")){
-    //                c5.circleColor = color(239, 71, 111);
-    //                c5.display();
-    //            }
-    //            if (wireNumber.equals("6")){
-    //                c6.circleColor = color(6, 214, 160);
-    //                c6.display();
-    //            }
-    //            if (wireNumber.equals("7")){
-    //                c7.circleColor = color(239, 71, 111);
-    //                c7.display();
-    //            }
-    //            if (wireNumber.equals("8")){
-    //                c8.circleColor = color(17, 138, 178);
-    //                c8.display();
-    //            }
-  
 }
+
+
 void computerTurn(){
   
-    IntList currSequence = generateSequence(sequenceLength);
+    sequenceIndex = 0; // Reset the index for sequence display
+    displayFrameCount = frameCount; // Reset the frame counter
+    userStage = false; // Bloc
+    //IntList currSequence = generateSequence(sequenceLength);
     
-    displaySequence(currSequence);
   
 }
+
+
+
 ///*public class MultiLevelGame {
 //    private Scanner scanner;
 

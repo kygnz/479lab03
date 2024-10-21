@@ -8,14 +8,13 @@ Serial myPort;
 int appState = 0;
 color initColor = color(12, 101, 131);
 
-//boolean isRunning = false; // game state
 boolean userStage = false;
-int sequenceLength = 1; // sequence starts at 3 and goes up for each level
+int sequenceLength = 1; // goes up for each level
 ArrayList<Circle> elements = new ArrayList<Circle>();
-//IntList sequence = new IntList(); // to store the sequence
-//int userPosition = 0;
-//boolean gameOver = false;
-//boolean gameWon = false;
+IntList currSequence = new IntList(); // to store the sequence
+int userPosition = 0; // user progress in sequence
+int sequenceIndex = 0; // Current index of the sequence being displayed
+int displayFrameCount = 0; // timing of sequence display
 
 
 
@@ -45,6 +44,8 @@ void setup (){
     elements.add(c6);
     elements.add(c7);
     elements.add(c8);
+    
+    currSequence.append(4);
  
 }
 
@@ -54,11 +55,13 @@ void draw() {
         drawTitleScreen();
     }
     else if(appState == 1){
-        
         //isRunning = true;
         drawMainScreen();
-        //computerTurn();
-          
+        if (userStage == false){
+            print("displaying sequence: Sequence length: " + currSequence.size());
+            displaySequence(currSequence);
+            //computerTurn();
+        }
         
     
     }
@@ -76,27 +79,45 @@ void serialEvent (Serial myPort)
     println(inString);
     
     if(inString != null){
-        if(appState == 1){
-        
-        }
-        if (inString.contains(" touched")){
-            String wireString = inString.substring(0, inString.indexOf(" touched"));
-            int wireNumber = int(wireString);
-            Circle circle = elements.get(wireNumber - 1);
-            circle.circleColor = color(255, 209, 102);
-            circle.display();
-        }
-        else if (inString.contains("released")){
-            String wireString = inString.substring(0, inString.indexOf(" released"));
-            int wireNumber = int(wireString);
-            Circle circle = elements.get(wireNumber - 1);
-            circle.circleColor = color(initColor);
-            circle.display();
-        }
-      
-    }
-    
+        inString = trim(inString);
+        if(appState == 1 && userStage == true){
+          
+             if (inString.contains("touched")) {
+                String wireString = inString.substring(0, inString.indexOf(" touched"));
+                int wireNumber = int(wireString) - 1; // Convert to zero-indexed
+
+                if (wireNumber == currSequence.get(userPosition)) {
+                    elements.get(wireNumber).circleColor = color(255, 209, 102);
+                    elements.get(wireNumber).display();
+                    delay(300); // Brief delay to show feedback
+                    elements.get(wireNumber).circleColor = initColor;
+                    elements.get(wireNumber).display();
+                    userPosition++;
+
+                    if (userPosition >= currSequence.size()) {
+                        userStage = false;
+                        sequenceLength++; // Increase sequence length for the next round
+                        userPosition = 0;
+                        addNewElementToSequence();
+                    }
+                } else {
+                    appState = 2; // Wrong input, game over
+                }
+                
+             }   
+            
+        }  
+    }  
 }
+
+void addNewElementToSequence() {
+    int newElement = int(random(1, elements.size() + 1));  // Random element (0 to 7)
+    currSequence.append(newElement - 1);  // Add the new element to the existing sequence
+    computerTurn();  // Start the next computer turn
+}
+
+
+
 
 
 
