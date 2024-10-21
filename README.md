@@ -10,12 +10,12 @@ Order of buttons/wire on the screen:
   10 will be the reset button that takes you back to the home screen
 
 ### To Do:
-- [ ] create a random sequence generator
-- [ ] play the sequence on the screen
-  - [ ] When the sequence is being played, the user's key presses should not be registered
+- [x] create a random sequence generator
+- [x] play the sequence on the screen
+  - [x] When the sequence is being played, the user's key presses should not be registered
 - [ ] After sequence plays, user repeats it
-  - [ ] When the user repeats it, if the user gets one step wrong, it either:
-    - [ ] Ends the game
+  - [x] When the user repeats it, if the user gets one step wrong, it either:
+    - [ ] Ends the game, giving them the option to play again
     - [ ] Or if we implement a button that gives three free passes, the user has an option to use their pass
 - [ ] When the game ends:
   - [ ] User score will be displayed
