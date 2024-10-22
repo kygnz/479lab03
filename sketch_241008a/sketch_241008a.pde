@@ -4,7 +4,7 @@ SEQUENCE MATCHING GAME
 
 import processing.serial.*;
 
-Serial myPort; 
+Serial myPort;
 int appState = 0;
 color initColor = color(12, 101, 131);
 
@@ -18,23 +18,25 @@ int displayFrameCount = 0; // timing of sequence display
 
 
 
-void setup (){     
+void setup (){    
 
     println(Serial.list());
-    //myPort = new Serial(this, Serial.list()[0], 115200);
-    //myPort.bufferUntil('\n');
-    size(1200, 700);
+    myPort = new Serial(this, Serial.list()[0], 115200);
+    myPort.bufferUntil('\n');
+    size(1200, 800);
    
     // Creates, but does not display, the circles
-    c1 = new Circle(537, 310, 55, initColor);
-    c2 = new Circle(675, 310, 55, initColor);
-    c3 = new Circle(450, 425, 55, initColor);
-    c4 = new Circle(600, 450, 55, initColor);
-    c5 = new Circle(750, 425, 55, initColor);
-    c6 = new Circle(475, 550, 55, initColor);
-    c7 = new Circle(600, 605, 55, initColor);
-    c8 = new Circle(725, 550, 55, initColor);
-    
+    c1 = new Circle(450, 200, 55, initColor, "");
+    c2 = new Circle(600, 200, 55, initColor, "");
+    c3 = new Circle(750, 200, 55, initColor, "");
+    c4 = new Circle(450, 350, 55, initColor, "");
+    c5 = new Circle(600, 350, 55, initColor, "");
+    c6 = new Circle(750, 350, 55, initColor, "");
+    c7 = new Circle(450, 500, 55, initColor, "");
+    c8 = new Circle(600, 500, 55, initColor, "");
+    c9 = new Circle(750, 500, 55, initColor, "");
+    c10 = new Circle(600, 650, 55, initColor, "RESET");
+   
     // Add the circles to an array
     elements.add(c1);
     elements.add(c2);
@@ -44,13 +46,15 @@ void setup (){
     elements.add(c6);
     elements.add(c7);
     elements.add(c8);
-    
+    elements.add(c9);
+    elements.add(c10);
+   
     currSequence.append(4);
  
 }
 
 void draw() {
-  
+ 
     if (appState == 0){
         drawTitleScreen();
     }
@@ -62,25 +66,26 @@ void draw() {
             displaySequence(currSequence);
             //computerTurn();
         }
-        
-    
+       
+   
     }
     else if(appState == 2){
         drawLosingScreen();
     }
-  
+ 
 }
 
 
-void serialEvent (Serial myPort) {
+void serialEvent (Serial myPort)
+{
     // get the ASCII string:
     String inString = myPort.readStringUntil('\n');
     println(inString);
-    
+   
     if(inString != null){
         inString = trim(inString);
         if(appState == 1 && userStage == true){
-          
+         
              if (inString.contains("touched")) {
                 String wireString = inString.substring(0, inString.indexOf(" touched"));
                 int wireNumber = int(wireString) - 1; // Convert to zero-indexed
@@ -102,9 +107,9 @@ void serialEvent (Serial myPort) {
                 } else {
                     appState = 2; // Wrong input, game over
                 }
-                
-             }   
-            
+               
+             }  
+           
         }  
     }  
 }

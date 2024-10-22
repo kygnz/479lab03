@@ -38,6 +38,7 @@ void displaySequence(IntList sequence) {
             }
         }
     } else {
+         println("user stage is now true");
         userStage = true;  // Switch to user's turn after sequence is displayed
         sequenceIndex = 0;
     }
