@@ -19,6 +19,8 @@ IntList generateSequence(int sequenceLength){
   
 }
 
+
+
 void displaySequence(IntList sequence) {
     if (sequenceIndex < sequence.size()) {
         if (frameCount - displayFrameCount > 30) {  // 0.5 seconds per element
@@ -42,6 +44,7 @@ void displaySequence(IntList sequence) {
 }
 
 
+
 void computerTurn(){
   
     sequenceIndex = 0; // Reset the index for sequence display
@@ -50,6 +53,13 @@ void computerTurn(){
     //IntList currSequence = generateSequence(sequenceLength);
     
   
+}
+
+
+void addNewElementToSequence() {
+    int newElement = int(random(1, elements.size() + 1));  // Random element (0 to 7)
+    currSequence.append(newElement - 1);  // Add the new element to the existing sequence
+    computerTurn();  // Start the next computer turn
 }
 
 

@@ -21,9 +21,9 @@ int displayFrameCount = 0; // timing of sequence display
 void setup (){     
 
     println(Serial.list());
-    myPort = new Serial(this, Serial.list()[0], 115200);
-    myPort.bufferUntil('\n');
-    size(1200, 900);
+    //myPort = new Serial(this, Serial.list()[0], 115200);
+    //myPort.bufferUntil('\n');
+    size(1200, 700);
    
     // Creates, but does not display, the circles
     c1 = new Circle(537, 310, 55, initColor);
@@ -72,8 +72,7 @@ void draw() {
 }
 
 
-void serialEvent (Serial myPort) 
-{
+void serialEvent (Serial myPort) {
     // get the ASCII string:
     String inString = myPort.readStringUntil('\n');
     println(inString);
@@ -110,11 +109,7 @@ void serialEvent (Serial myPort)
     }  
 }
 
-void addNewElementToSequence() {
-    int newElement = int(random(1, elements.size() + 1));  // Random element (0 to 7)
-    currSequence.append(newElement - 1);  // Add the new element to the existing sequence
-    computerTurn();  // Start the next computer turn
-}
+
 
 
 
