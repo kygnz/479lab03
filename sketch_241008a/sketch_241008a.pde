@@ -10,7 +10,7 @@ int gameLength = 30000;
 String _gameState = "MAIN_MENU";  // MAIN_MENU, NAME_ENTRY, MATH_GAME, MEMORY_GAME
 String playerName = "";
 String selectedGame = "";
-
+PImage bg;
 
 
 
@@ -19,7 +19,10 @@ void setup (){
     println(Serial.list());
     myPort = new Serial(this, Serial.list()[0], 115200);
     myPort.bufferUntil('\n');
+    //size(1200, 800);
     size(1200, 800);
+    bg = loadImage("bg3.png");
+    bg.resize(1200, 800);
     
     // Creates, but does not display, the circles
     c1 = new Circle(450, 200, 55, s_initColor, "");
@@ -55,6 +58,7 @@ void draw() {
 
     fill(255);
     background(color(7, 59, 76));
+     image(bg, 0, 0);
     switch(_gameState) {
       case "MAIN_MENU":
           drawMainMenu();

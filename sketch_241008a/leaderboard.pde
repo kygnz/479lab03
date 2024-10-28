@@ -37,6 +37,7 @@ class Leaderboard {
 
 void drawMathLeaderboard() {
     background(7, 59, 76);  // Clear the screen
+    image(bg, 0, 0);
 
     textSize(48);
     fill(255);

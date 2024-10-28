@@ -5,7 +5,8 @@ SEQUENCE MATCHING GAME
 import processing.serial.*;
 
 int s_appState = 0;
-color s_initColor = color(12, 101, 131);
+color s_initColor = color(88, 20, 142);
+//color s_initColor = color(12, 101, 131);
 //Circle c1, c2, c3, c4, c5, c6, c7, c8;
 
 boolean s_userStage = false;
@@ -19,7 +20,8 @@ Leaderboard s_leaderboard= new Leaderboard();
 
 
 void ssetup (){    
-
+    bg = loadImage("bg3.png");
+    bg.resize(1200, 800);
   //drawNumberPad();
    for (int i=1; i <= elements.size(); i++) {
     elements.get(i - 1).cButtonText = "";
@@ -32,6 +34,8 @@ void ssetup (){
 
 
 void sdraw() {
+  //bg = loadImage("bg3.png");
+  //  bg.resize(1200, 800);
   for (int i=1; i <= elements.size(); i++) {
     elements.get(i - 1).cButtonText = "";
     elements.get(i - 1).display();

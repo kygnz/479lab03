@@ -23,8 +23,8 @@ ArrayList<Circle> elements = new ArrayList<Circle>();
 
 
 void drawMainScreen(){
-    background(color(7, 59, 76));
-    fill(255);
+    
+    image(bg, 0, 0);
     textAlign(CENTER, CENTER);
     textSize(55);
     text("Level: " + s_sequenceLength, width / 2, height * 0.1);
@@ -66,6 +66,9 @@ void drawLosingScreen(){
  
     background(color(7, 59, 76));
     fill(255);
+    bg = loadImage("bg3.png");
+    bg.resize(1200, 800);
+    image(bg, 0, 0);
     textAlign(CENTER, CENTER);
     textSize(55);
     text("You Lost! Level " + s_sequenceLength, width / 2, height * 0.2);

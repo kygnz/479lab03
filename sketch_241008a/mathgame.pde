@@ -54,7 +54,7 @@ void mserialEvent(int value){
 
  if (value >= 1 && value <= 9) {
         if (value == currentAnswer) {
-          elements.get(value - 1).circleColor = color(0, 255, 0);  // Green for correct answer
+          elements.get(value - 1).circleColor = color(6, 214, 160);  // Green for correct answer
             elements.get(value - 1).display();
             delay(300);
             
@@ -65,7 +65,7 @@ void mserialEvent(int value){
           generateMathProblem();
         }
         else{
-        elements.get(value - 1).circleColor = color(255, 0, 0);  // Red for incorrect answer
+        elements.get(value - 1).circleColor = color(239, 71, 111);  // Red for incorrect answer
             elements.get(value - 1).display();
             delay(300);
             
