@@ -57,6 +57,16 @@ void computerTurn(){
   
 }
 
+void resetMemoryGame() {
+    s_sequenceLength = 1;  // Reset sequence length
+    s_currSequence.clear();  // Clear the current sequence
+    s_userPosition = 0;  // Reset the user's progress
+    s_appState = 1;  // Set to the game state to start the game
+    s_userStage = false;  // Reset user stage
+    addNewElementToSequence();  // Generate the first sequence
+    computerTurn();  // Start the computer's turn
+}
+
 
 
 ///*public class MultiLevelGame {

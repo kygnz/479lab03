@@ -212,7 +212,7 @@ void handleSensorTouch(int sensor) {
         computerTurn();
                 }else if(sensor==10){
                 
-                  
+             resetMemoryGame();      
           _gameState = "MAIN_MENU";
         }
       break;

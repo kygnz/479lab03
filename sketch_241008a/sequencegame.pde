@@ -27,6 +27,7 @@ void ssetup (){
     elements.get(i - 1).cButtonText = "";
     elements.get(i - 1).display();
    }
+   s_sequenceLength = 1;
     s_currSequence.append(4);
  
 }
@@ -57,6 +58,7 @@ void sdraw() {
    
     }
     else if(s_appState == 2){
+        
         drawLosingScreen();
     }
  
