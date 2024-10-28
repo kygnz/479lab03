@@ -16,7 +16,7 @@ IntList s_currSequence = new IntList(); // to store the sequence
 int s_userPosition = 0; // user progress in sequence
 int s_sequenceIndex = 0; // Current index of the sequence being displayed
 int s_displayFrameCount = 0; // timing of sequence display
-
+Leaderboard s_leaderboard= new Leaderboard();
 
 
 void ssetup (){    

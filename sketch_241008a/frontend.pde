@@ -63,14 +63,16 @@ void displayNumberPad(){
 
 
 void drawLosingScreen(){
+ 
     background(color(7, 59, 76));
     fill(255);
     textAlign(CENTER, CENTER);
     textSize(55);
     text("You Lost! Level " + s_sequenceLength, width / 2, height * 0.2);
         text("Touch 10 to return to main menu", width/2, height*0.3);
-
-    
+        
+s_leaderboard.addPlayer(playerName, s_sequenceLength);
+     s_leaderboard.display(width/2, height*0.4);
     //playAgain = new Button("Play Again", width / 2 - 60, height / 2 - 25, 100, 50, color(238, 240, 242));
     //playAgain.display();
 }

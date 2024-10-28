@@ -6,6 +6,7 @@ int num1 = 0;
 int num2 = 0;
 char operator = '+';
 int currentAnswer = 0;
+Leaderboard m_leaderboard= new Leaderboard();
 
 void mathsetup(){
 drawMathNumberPad();
@@ -30,9 +31,11 @@ void mathdraw(){
     if(mathScore>mathHighScore){
     mathHighScore=mathScore;
     }
+    m_leaderboard.addPlayer(playerName, mathScore);
     text("High Score: " + mathHighScore, width/2, height/2 + 60);
     textSize(24);
     text("Touch 10 to return to main menu", width/2, height*3/4);
+    m_leaderboard.display(width/2, height*0.8);
     return;
   }
   
