@@ -34,3 +34,28 @@ class Leaderboard {
         }
     }
 }
+
+void drawMathLeaderboard() {
+    background(7, 59, 76);  // Clear the screen
+
+    textSize(48);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    text("Leaderboard", width / 2, height * 0.1);  // Title
+
+    m_leaderboard.display(width / 2, height * 0.2);  // Display leaderboard starting lower
+    textSize(24);
+    text("Press 10 to return to the main menu", width / 2, height * 0.9);
+    
+    textSize(48);
+    text("Time's Up!", width/2, height/3);
+    text("Score: " + mathScore, width/2, height/2);
+    if(mathScore>mathHighScore){
+    mathHighScore=mathScore;
+    }
+    m_leaderboard.addPlayer(playerName, mathScore);
+    text("High Score: " + mathHighScore, width/2, height/2 + 60);
+    textSize(24);
+    text("Touch 10 to return to main menu", width/2, height*3/4);
+    m_leaderboard.display(width/2, height*0.8);
+}

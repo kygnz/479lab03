@@ -20,6 +20,32 @@ void setup (){
     myPort = new Serial(this, Serial.list()[0], 115200);
     myPort.bufferUntil('\n');
     size(1200, 800);
+    
+    // Creates, but does not display, the circles
+    c1 = new Circle(450, 200, 55, s_initColor, "");
+    c2 = new Circle(600, 200, 55, s_initColor, "");
+    c3 = new Circle(750, 200, 55, s_initColor, "");
+    c4 = new Circle(450, 350, 55, s_initColor, "");
+    c5 = new Circle(600, 350, 55, s_initColor, "");
+    c6 = new Circle(750, 350, 55, s_initColor, "");
+    c7 = new Circle(450, 500, 55, s_initColor, "");
+    c8 = new Circle(600, 500, 55, s_initColor, "");
+    c9 = new Circle(750, 500, 55, s_initColor, "");
+    c10 = new Circle(600, 650, 55, s_initColor, "RESET");
+    
+       
+    // Add the circles to an array
+    elements.add(c1);
+    elements.add(c2);
+    elements.add(c3);
+    elements.add(c4);
+    elements.add(c5);
+    elements.add(c6);
+    elements.add(c7);
+    elements.add(c8);
+    elements.add(c9);
+    elements.add(c10);
+    
     mathsetup();
     ssetup();
  
@@ -39,12 +65,20 @@ void draw() {
       case "MATH_GAME":
           mathsetup();
           mathdraw();
+          
           break;
       case "MEMORY_GAME":
     
          sdraw();
+         
          break;
+         
+       case "MATH_LEADERBOARD":
+          drawMathLeaderboard();  // Display only the leaderboard
+          break;
      }
+     
+    
      
 } 
 
@@ -116,21 +150,27 @@ void serialEvent(Serial myPort) {
   String inString = myPort.readStringUntil('\n');
    println(inString);
   if (inString != null) {
-    inString = trim(inString);
-    String[] parts = split(inString, ' ');
-    
-    if (parts.length == 2) {
-      int sensorNum = int(parts[0]);
-      boolean isTouched = parts[1].equals("touched:");
+      inString = trim(inString);
+      String[] parts = split(inString, ' ');
       
-      if (sensorNum >= 0 && sensorNum < 12) {
-        sensorTouched[sensorNum] = isTouched;
-        
-        if (isTouched) {
-          handleSensorTouch(sensorNum);
-        }
+      if (parts.length == 2) {
+          int sensorNum = int(parts[0]);
+          boolean isTouched = parts[1].equals("touched:");
+          
+          if (sensorNum >= 0 && sensorNum < 12) {
+              sensorTouched[sensorNum] = isTouched;
+              
+              if (isTouched) {
+                  
+                  //elements.get(sensorNum).display();
+                  handleSensorTouch(sensorNum);
+                  //elements.get(sensorNum).circleColor = color(255, 255, 255);
+                  //for (Circle c : elements) {
+                  //  c.display();
+                  //}
+              } 
+          }
       }
-    }
   }
 }
 
@@ -149,9 +189,10 @@ void handleSensorTouch(int sensor) {
       
     case "MATH_GAME":
         if (gameLength - (millis() - gameStartTime) <= 0) {
-        if (sensor == 10) {
-          _gameState = "MAIN_MENU";
-        }
+          _gameState = "MATH_LEADERBOARD";
+          //if (sensor == 10) {
+          //  _gameState = "MAIN_MENU";
+          //}
         return;
       } else {mserialEvent(sensor);}
       break;
@@ -171,6 +212,12 @@ void handleSensorTouch(int sensor) {
           _gameState = "MAIN_MENU";
         }
       break;
+      
+      case "MATH_LEADERBOARD":
+        if (sensor == 10) {
+            _gameState = "MAIN_MENU";  // Return to the main menu
+        }
+        break;
   }
 }
 

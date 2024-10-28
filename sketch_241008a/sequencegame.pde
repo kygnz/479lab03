@@ -4,7 +4,6 @@ SEQUENCE MATCHING GAME
 
 import processing.serial.*;
 
-
 int s_appState = 0;
 color s_initColor = color(12, 101, 131);
 //Circle c1, c2, c3, c4, c5, c6, c7, c8;
@@ -21,8 +20,11 @@ Leaderboard s_leaderboard= new Leaderboard();
 
 void ssetup (){    
 
-  drawNumberPad();
-   
+  //drawNumberPad();
+   for (int i=1; i <= elements.size(); i++) {
+    elements.get(i - 1).cButtonText = "";
+    elements.get(i - 1).display();
+   }
     s_currSequence.append(4);
  
 }
@@ -30,9 +32,14 @@ void ssetup (){
 
 
 void sdraw() {
+  for (int i=1; i <= elements.size(); i++) {
+    elements.get(i - 1).cButtonText = "";
+    elements.get(i - 1).display();
+   }
  
     if (s_appState == 0){
         //drawTitleScreen();
+        
     }
     else if(s_appState == 1){
         //isRunning = true;
@@ -41,6 +48,7 @@ void sdraw() {
             print("displaying sequence: Sequence length: " + s_currSequence.size());
             displaySequence(s_currSequence);
         }
+        
        
    
     }
@@ -51,28 +59,29 @@ void sdraw() {
 }
 
 
+
 void sserialEvent (int wireNumber)
 {
-                 wireNumber = wireNumber - 1; // Convert to zero-indexed
+       wireNumber = wireNumber - 1; // Convert to zero-indexed
 
-                if (wireNumber == s_currSequence.get(s_userPosition)) {
-                    elements.get(wireNumber).circleColor = color(255, 209, 102);
-                    elements.get(wireNumber).display();
-                    delay(300); // Brief delay to show feedback
-                    elements.get(wireNumber).circleColor = s_initColor;
-                    elements.get(wireNumber).display();
-                    s_userPosition++;
+      if (wireNumber == s_currSequence.get(s_userPosition)) {
+          elements.get(wireNumber).circleColor = color(255, 209, 102);
+          elements.get(wireNumber).display();
+          delay(300); // Brief delay to show feedback
+          elements.get(wireNumber).circleColor = s_initColor;
+          elements.get(wireNumber).display();
+          s_userPosition++;
 
-                    if (s_userPosition >= s_currSequence.size()) {
-                        s_userStage = false;
-                        s_sequenceLength++; // Increase sequence length for the next round
-                        s_userPosition = 0;
-                        addNewElementToSequence();
-                    }
-                } else {
-                    s_appState = 2; // Wrong input, game over
-                }
-              
+          if (s_userPosition >= s_currSequence.size()) {
+              s_userStage = false;
+              s_sequenceLength++; // Increase sequence length for the next round
+              s_userPosition = 0;
+              addNewElementToSequence();
+          }
+      } else {
+          s_appState = 2; // Wrong input, game over
+      }
+    
            
    }  
  

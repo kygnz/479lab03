@@ -4,6 +4,7 @@ class Circle{
     float r;   // radius
     color circleColor;
     String cButtonText;
+   
     
     Circle(float x, float y, float r, color circleColor, String cButtonText){
         this.x = x;
@@ -23,5 +24,11 @@ class Circle{
         //text(cButtonText, width / 2, height * 0.8 + 10);
         text(cButtonText, x, y);
     }
+    
+    boolean isClicked(float mouseX, float mouseY) {
+        return dist(mouseX, mouseY, x, y) < r;
+    }
+    
+    
   
 }

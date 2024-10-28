@@ -9,9 +9,10 @@ int currentAnswer = 0;
 Leaderboard m_leaderboard= new Leaderboard();
 
 void mathsetup(){
-drawMathNumberPad();
-for (Circle c : elements) {
-    c.display();  // Display each circle with its text
+//drawMathNumberPad();
+for (int i=1; i <= elements.size(); i++) {
+    elements.get(i - 1).cButtonText = str(i);
+    elements.get(i - 1).display();
 }
 //for(int i=1; i < elements.size(); i++){
 //  elements.get(i - 1).cButtonText = str(i);
@@ -31,17 +32,7 @@ void mathdraw(){
   
   if (timeLeft <= 0) {
     // Game Over
-    textSize(48);
-    text("Time's Up!", width/2, height/3);
-    text("Score: " + mathScore, width/2, height/2);
-    if(mathScore>mathHighScore){
-    mathHighScore=mathScore;
-    }
-    m_leaderboard.addPlayer(playerName, mathScore);
-    text("High Score: " + mathHighScore, width/2, height/2 + 60);
-    textSize(24);
-    text("Touch 10 to return to main menu", width/2, height*3/4);
-    m_leaderboard.display(width/2, height*0.8);
+    _gameState = "MATH_LEADERBOARD";
     return;
   }
   
@@ -52,7 +43,10 @@ void mathdraw(){
   
   textSize(48);
   text(num1 + " " + operator + " " + num2 + " = ?", (width/4)-10, height/2);
-displayNumberPad();
+//displayNumberPad();
+    for (int i=1; i <= elements.size(); i++) {
+        elements.get(i - 1).display();
+    }
 }
 
 
@@ -60,10 +54,28 @@ void mserialEvent(int value){
 
  if (value >= 1 && value <= 9) {
         if (value == currentAnswer) {
+          elements.get(value - 1).circleColor = color(0, 255, 0);  // Green for correct answer
+            elements.get(value - 1).display();
+            delay(300);
+            
+            // Reset the circle's color
+            elements.get(value - 1).circleColor = s_initColor;
+            elements.get(value - 1).display();
           mathScore++;
           generateMathProblem();
         }
+        else{
+        elements.get(value - 1).circleColor = color(255, 0, 0);  // Red for incorrect answer
+            elements.get(value - 1).display();
+            delay(300);
+            
+             // Reset the circle's color
+            elements.get(value - 1).circleColor = s_initColor;
+            elements.get(value - 1).display();
+        
       }
+      }
+      
         if (value == 10) {
           _gameState = "MAIN_MENU";
         }
