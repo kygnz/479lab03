@@ -18,9 +18,10 @@ class Circle{
         noStroke();
         ellipse(x, y, r * 2, r * 2);   
         textAlign(CENTER, CENTER);
-        textSize(20);
+        textSize(r/2);
         fill(255, 255, 255);
-        text(cButtonText, width / 2, height * 0.8 + 10);
+        //text(cButtonText, width / 2, height * 0.8 + 10);
+        text(cButtonText, x, y);
     }
   
 }

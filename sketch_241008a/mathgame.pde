@@ -10,8 +10,14 @@ Leaderboard m_leaderboard= new Leaderboard();
 
 void mathsetup(){
 drawMathNumberPad();
+for (Circle c : elements) {
+    c.display();  // Display each circle with its text
 }
-
+//for(int i=1; i < elements.size(); i++){
+//  elements.get(i - 1).cButtonText = str(i);
+//  elements.get(i - 1).display();
+//}
+}
 
 void startMathGame() {
   _gameState = "MATH_GAME";

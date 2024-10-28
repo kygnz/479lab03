@@ -17,70 +17,66 @@ String selectedGame = "";
 void setup (){     
 
     println(Serial.list());
-    myPort = new Serial(this, Serial.list()[4], 115200);
+    myPort = new Serial(this, Serial.list()[0], 115200);
     myPort.bufferUntil('\n');
     size(1200, 800);
-    //ssetup ();
- //sequencesetup();
- mathsetup();
-  ssetup();
+    mathsetup();
+    ssetup();
  
 }
 
 void draw() {
 
-  
-     fill(255);
+    fill(255);
     background(color(7, 59, 76));
     switch(_gameState) {
-    case "MAIN_MENU":
-      drawMainMenu();
-      break;
-    case "NAME_ENTRY":
-      drawNameEntry();
-      break;
-    case "MATH_GAME":
-    mathsetup();
-      //drawMathGame();
-      mathdraw();
-      break;
-    case "MEMORY_GAME":
-  
- sdraw();
-      break;
-  }
-  
-}
+      case "MAIN_MENU":
+          drawMainMenu();
+          break;
+      case "NAME_ENTRY":
+          drawNameEntry();
+          break;
+      case "MATH_GAME":
+          mathsetup();
+          mathdraw();
+          break;
+      case "MEMORY_GAME":
+    
+         sdraw();
+         break;
+     }
+     
+} 
 
 void drawMainMenu() {
  
-  textSize(48);
-  text("Brain Training Games", width/2, height/4);
-  
-  textSize(32);
-  text("Press 1: Math Sprint", width/2, height/2);
-  text("Press 2: Memory Game", width/2, height/2 + 60);
-  
-  if (playerName.length() > 0) {
-    textSize(24);
-    text("Current Player: " + playerName, width/2, height*3/4);
-  }
+    textSize(48);
+    text("Brain Training Games", width/2, height/4);
+    
+    textSize(32);
+    text("Press 1: Math Sprint", width/2, height/2);
+    text("Press 2: Memory Game", width/2, height/2 + 60);
+    
+    if (playerName.length() > 0) {
+        textSize(24);
+        text("Current Player: " + playerName, width/2, height*3/4);
+    }
 }
 void drawNameEntry() {
-   println("enter name");
-  textSize(48);
-  text("Enter Your Name", width/2, height/4);
-  
-  textSize(32);
-  text("Selected Game: " + selectedGame, width/2, height/4 + 60);
-  
-  // Display current name being entered
-  textSize(36);
-  text(playerName + "_", width/2, height/2);
-  
-  textSize(24);
-  text("Type your name and press ENTER", width/2, height*3/4);
-  text("(Press BACKSPACE to correct)", width/2, height*3/4 + 30);
+    println("enter name");
+    textSize(48);
+    text("Enter Your Name", width/2, height/4);
+    
+    textSize(32);
+    text("Selected Game: " + selectedGame, width/2, height/4 + 60);
+    
+    // Display current name being entered
+    textSize(36);
+    text(playerName + "_", width/2, height/2);
+    
+    textSize(24);
+    text("Type your name and press ENTER", width/2, height*3/4);
+    text("(Press BACKSPACE to correct)", width/2, height*3/4 + 30);
 }
 
 
@@ -88,20 +84,19 @@ void drawNameEntry() {
 void keyPressed() {
  
   if (_gameState.equals("NAME_ENTRY")) {
-    if (key == '\n' || key == '\r') {
-      // Enter pressed - start game if name isn't empty
-      if (playerName.length() > 0) {
-         println(selectedGame);
-        if (selectedGame.equals("Math Sprint")) {
-                     startMathGame();
-
+      if (key == '\n' || key == '\r') {
+          // Enter pressed - start game if name isn't empty
+          if (playerName.length() > 0) {
+             println(selectedGame);
+            if (selectedGame.equals("Math Sprint")) {
+                startMathGame();
+    
+            }
+            else {
+               println("enter memo");
+               startMemoryGame();
+            }
         }
-        else {
-          println("enter memo");
-           startMemoryGame();
-           //_gameState = "MEMORY_GAME";
-        }
-      }
     } else if (key == BACKSPACE) {
       // Remove last character
       if (playerName.length() > 0) {
@@ -160,37 +155,11 @@ void handleSensorTouch(int sensor) {
         return;
       } else {mserialEvent(sensor);}
       break;
-      
-      //if (sensor >= 1 && sensor <= 9) {
-      //  if (sensor == currentAnswer) {
-      //    mathScore++;
-      //    generateMathProblem();
-      //  }
-      //}
 
       
     case "MEMORY_GAME":
-      //if (!showingSequence) {
         if (sensor >= 1 && sensor <= 9) {
           sserialEvent(sensor);
-      //    if (sensor == sequence[playerSequenceIndex]) {
-      //      playerSequenceIndex++;
-      //      if (playerSequenceIndex >= sequenceLength) {
-      //        memoryScore++;
-      //        sequenceLength++;
-      //        generateMemorySequence();
-      //      }
-      //    } else {
-      //      if (memoryScore > memoryHighScore) {
-      //        memoryHighScore = memoryScore;
-      //      }
-      //      memoryScore = 0;
-      //      sequenceLength = 3;
-      //      generateMemorySequence();
-      //    }
-      //  } else if (sensor == 10) {
-      //    _gameState = "MAIN_MENU";
-      //  }
       }
       
       if(s_appState==0 && sensor==10){
@@ -206,9 +175,9 @@ void handleSensorTouch(int sensor) {
 }
 
 void startMemoryGame() {
-  _gameState = "MEMORY_GAME";
-     s_appState = 1;
-        computerTurn();
+    _gameState = "MEMORY_GAME";
+    s_appState = 1;
+    computerTurn();
 }
 
 
