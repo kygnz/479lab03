@@ -7,7 +7,7 @@ IntList generateSequence(int s_sequenceLength){
   
     IntList sequence = new IntList(); // to store the sequence
     Random random = new Random();
-    int min = 1, max = 8;
+    int min = 1, max = 7;
     
     // Adds random numbers to the sequence
     for (int i=0; i < s_sequenceLength; i++){
